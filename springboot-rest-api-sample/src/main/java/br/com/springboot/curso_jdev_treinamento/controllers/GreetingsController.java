@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,4 +69,34 @@ public class GreetingsController {
     	
     	return new ResponseEntity<Usuario>(user, HttpStatus.CREATED);
     }
+    
+    @DeleteMapping(value = "delete") /*Mapeia a URL*/
+    @ResponseBody /*Descrição da resposta*/
+    public ResponseEntity<String> delete(@RequestParam Long idUser){ /*Recebe como parâmetro o ID do usuário que vai ser deletado*/
+    	usuarioRepository.deleteById(idUser);
+    	
+    	return new ResponseEntity<String>("Usuário deletado com sucesso", HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "buscaruserid")
+    @ResponseBody
+    public ResponseEntity<Usuario> buscaruserid(@RequestParam(name = "iduser") Long iduser){ /*Recebe como parâmetro o ID do usuário que vai ser buscado / Outra forma de pegar o ID*/
+    	Usuario user = usuarioRepository.findById(iduser).get(); /*Necessário o método Get no final para retornar o Objeto usuário, já que ao contrário do Delete os seus dados serão exibidos*/
+    	
+    	return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+    }
+    
+    @PutMapping(value = "atualizar")
+    @ResponseBody
+    public ResponseEntity<?> atualizar(@RequestBody Usuario usuario){ /* O sinal de ? ao invés de uma classe ou tipo de variável, permite que o método qualquer coisa, ou seja, tanto o texto da msg quanto o Usuário*/
+    	
+    	if (usuario.getId() == null) {
+    		return new ResponseEntity<String>("Id não foi informado para atualização",HttpStatus.OK); /*Validação para impedir que o ID não seja informado inserindo um Novo Usuário*/
+    	}
+    	
+    	Usuario user = usuarioRepository.saveAndFlush(usuario);
+    	
+    	return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+    }
+    
 }
