@@ -34,6 +34,7 @@
 </form>
 
 <button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
+<button type="button" class="btn btn-secondary" onclick="document.getElementById('formCadastroUser').reset()">Novo</button>
 
 </body>
 
@@ -43,7 +44,18 @@
 		var nome = $("#nome").val();
 		var idade = $("#idade").val();
 		
-		alert(nome + " - " + idade);
+		$.ajax({
+			method: "POST", //Mesmo método do END-POINT
+			url: "salvar", //Mesma url mapeada da API
+			data: JSON.stringify({id: id, nome: nome, idade: idade}), //Nos parâmetros do lado esquerdo o atributo da classe e do lado direito o id campo da tela (html)
+			contentType: "application/json; charset=utf-8",
+			success: function (response){
+				$("#id").val(response.id); //Após inserir no banco retornar o valor do ID gerado para exibir na tela
+				alert("Gravado com sucesso!")
+			}
+		}).fail(function (xhr, status, errorThrown) {
+			alert("Erro ao salvar usuário: " + xhr.responseText);
+		});
 	}
 
 </script>
