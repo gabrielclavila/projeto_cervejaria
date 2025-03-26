@@ -11,7 +11,18 @@
 		<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
 		<!-- O Modal não estava sendo exibido com a versão do Bootstrap mostrada no Curso acima, então utilizei a versão mais atual do Bootstrap abaixo -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>		
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<style type="text/css">
+
+html{
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 5%;
+}
+
+</style>
+				
 </head>
 
 <body>
@@ -56,18 +67,20 @@
           </div>
           <button type="button" class="btn btn-success" onclick="pesquisarUser()">Buscar</button>
         </form>
-			<table class="table" id="tabelaresultados">
-			  <thead>
-			    <tr>
-			      <th scope="col">ID</th>
-			      <th scope="col">Nome</th>
-			      <th scope="col">Editar</th>
-			      <th scope="col">Deletar</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  </tbody>
-			</table>
+        	<div style="height: 300px; overflow:scroll;">
+				<table class="table" id="tabelaresultados">
+				  <thead>
+				    <tr>
+				      <th scope="col">ID</th>
+				      <th scope="col">Nome</th>
+				      <th scope="col">Editar</th>
+				      <th scope="col">Deletar</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  </tbody>
+				</table>
+			</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -84,6 +97,18 @@
 		var id = $("#id").val();
 		var nome = $("#nome").val();
 		var idade = $("#idade").val();
+		
+		if (nome == null || nome != null && nome.trim() == ''){
+			$("#nome").focus();
+			alert('Informe o nome:');
+			return;
+		}
+		
+		if (idade == null || idade != null && idade.trim() == ''){
+			$("#idade").focus();
+			alert('Informe a idade:');
+			return;
+		}
 		
 		$.ajax({
 			method: "POST", //Mesmo método do END-POINT
@@ -145,9 +170,11 @@
 	
 	function botaoDeletarDaTela(){
 		var id = $("#id").val();
-		deleteUser(id);
 		
-		document.getElementById('formCadastroUser').reset();
+		if(id != null && id.trim() != ''){
+			deleteUser(id);
+			document.getElementById('formCadastroUser').reset();
+		}	
 	}
 		
 	function deleteUser(id){
