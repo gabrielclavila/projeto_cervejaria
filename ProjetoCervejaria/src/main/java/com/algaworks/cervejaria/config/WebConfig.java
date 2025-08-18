@@ -16,12 +16,12 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import com.algaworks.cervejaria.controller.CervejariaController;
+import com.algaworks.cervejaria.controller.CervejasController;
 
 
 //@ComponentScan("com.algaworks.cervejaria.controller") - Poderia ser feito setado o pacote do controller como uma string, mas fica sucetível a erros de digitação
 @Configuration
-@ComponentScan(basePackageClasses = { CervejariaController.class }) //basePackageClasses nós estamos pedindo para encontrar todas as classes com notação de @Controller no mesmo pacote da classe que colocamos o nome, dentro {} é um vetor podemos colocar outros nomes de classes
+@ComponentScan(basePackageClasses = { CervejasController.class }) //basePackageClasses nós estamos pedindo para encontrar todas as classes com notação de @Controller no mesmo pacote da classe que colocamos o nome, dentro {} é um vetor podemos colocar outros nomes de classes
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 
