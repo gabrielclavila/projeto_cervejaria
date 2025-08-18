@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.algaworks.cervejaria.model.Cerveja;
+
 @Controller
 public class CervejasController {
 
@@ -12,10 +14,10 @@ public class CervejasController {
 		return "cerveja/CadastroCerveja";
 	}
 	
-	//Parâmetro sku veio da propriedade name do input na página HTML, mapeamento feito pelo Spring Framework
+	//Ao invés de passar uma lista de parâmetros caso o formulário de cadastro possua vários com o ideal é sempre passar o Objeto Cerveja para o método
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
-	public String cadastrar(String sku) {
-		System.out.println("SKU: "+ sku);
+	public String cadastrar(Cerveja cerveja) {
+		System.out.println("SKU: "+ cerveja.getSku());
 		return "cerveja/CadastroCerveja";
 	}
 	
