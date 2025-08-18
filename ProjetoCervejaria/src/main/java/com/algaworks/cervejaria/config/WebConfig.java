@@ -18,9 +18,12 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.algaworks.cervejaria.controller.CervejariaController;
 
-@Configuration
+
 //@ComponentScan("com.algaworks.cervejaria.controller") - Poderia ser feito setado o pacote do controller como uma string, mas fica sucetível a erros de digitação
-@ComponentScan(basePackageClasses = { CervejariaController.class}) //basePackageClasses nós estamos pedindo para encontrar todas as classes com notação de @Controller no mesmo pacote da classe que colocamos o nome, dentro {} é um vetor podemos colocar outros nomes de classes
+
+//@ComponentScan(basePackageClasses = { CervejariaController.class }) //basePackageClasses nós estamos pedindo para encontrar todas as classes com notação de @Controller no mesmo pacote da classe que colocamos o nome, dentro {} é um vetor podemos colocar outros nomes de classes
+@Configuration
+@ComponentScan("com.algaworks.cervejaria.controller")
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 
@@ -30,15 +33,14 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
-	
-	
-	private ITemplateResolver templateResolver() {
-		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-		resolver.setApplicationContext(applicationContext);
-		resolver.setPrefix("classpath:/templates/");
-		resolver.setTemplateMode(TemplateMode.HTML);
+
+	@Bean
+	public ViewResolver viewResolver() {
+		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+		resolver.setTemplateEngine(templateEngine());
+		resolver.setCharacterEncoding("UTF-8");
 		return resolver;
-	}
+	}	
 	
 	@Bean
 	public TemplateEngine templateEngine() {
@@ -46,13 +48,18 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		engine.setEnableSpringELCompiler(true);
 		engine.setTemplateResolver(templateResolver());
 		return engine;
-	}
+	}	
 	
-	@Bean
-	public ViewResolver viewResolver() {
-		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-		resolver.setTemplateEngine(templateEngine());
-		resolver.setCharacterEncoding("UTF-8");
+	private ITemplateResolver templateResolver() {
+		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+		resolver.setApplicationContext(applicationContext);
+		resolver.setPrefix("classpath:/templates/");
+		resolver.setSuffix(".html");
+		resolver.setTemplateMode(TemplateMode.HTML);
 		return resolver;
 	}
+	
+
+	
+
 }
