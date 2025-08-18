@@ -1,11 +1,13 @@
 package com.algaworks.cervejaria.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Cerveja {
 	
 	private String sku;
 	private String nome;
 	
-	
+	@NotBlank
 	public String getSku() {
 		return sku;
 	}
