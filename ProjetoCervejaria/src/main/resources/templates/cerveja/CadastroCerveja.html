@@ -7,8 +7,13 @@
 </body>
 
 
-	<form method=POST>
-		<span th:text="${mensagem}"></span>
+	<form method=POST th:object="${cerveja}">
+		<span th:text="${#fields.hasAnyErrors()}"></span>
+		<div th:each="erro : ${#fields.detailedErrors()}">
+			<span th:text="${erro.message}"></span>
+		</div>
+	
+		<span th:text="${mensagem}">Erro!</span>
 		<br>
 		
 		<label for="sku">SKU</label>
