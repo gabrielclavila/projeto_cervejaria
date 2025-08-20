@@ -6,13 +6,11 @@
 	<h1>Olá! Thymeleaf configurado!</h1>
 </body>
 
+	<div th:each="erro : ${#fields.detailedErrors('${cerveja.*}')}">
+		<span th:text="${erro.message}"></span>
+	</div>
 
 	<form method=POST th:object="${cerveja}">
-		<span th:text="${#fields.hasAnyErrors()}"></span>
-		<div th:each="erro : ${#fields.detailedErrors()}">
-			<span th:text="${erro.message}"></span>
-		</div>
-	
 		<span th:text="${mensagem}">Erro!</span>
 		<br>
 		
