@@ -32,4 +32,9 @@ public class CervejasController {
 		return "redirect:/cervejas/novo"; //redirect, redireciona para uma URL
 	}
 	
+	//Mapeamento apenas para testar se a nova página html utilizando layout do Bootstrap está sendo acessada aplicando o layout
+	@RequestMapping("cervejas/cadastro")
+	public String cadastro() {
+		return "cerveja/cadastro-produto";
+	}
 }
