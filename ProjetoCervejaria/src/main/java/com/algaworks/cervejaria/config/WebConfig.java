@@ -19,6 +19,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.algaworks.cervejaria.controller.CervejasController;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
+
 
 //@ComponentScan("com.algaworks.cervejaria.controller") - Poderia ser feito setado o pacote do controller como uma string, mas fica sucetível a erros de digitação
 @Configuration
@@ -46,6 +48,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		SpringTemplateEngine engine = new SpringTemplateEngine();
 		engine.setEnableSpringELCompiler(true);
 		engine.setTemplateResolver(templateResolver());
+		
+		engine.addDialect(new LayoutDialect());
 		return engine;
 	}	
 	
