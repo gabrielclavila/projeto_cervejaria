@@ -30,7 +30,7 @@
 
 	    <div class="navbar-header">
 		      <a class="navbar-brand  hidden-xs" href="#">
-		      	<img alt="AlgaWorks" src="@{/images/logo.png}"/>
+		      	<img alt="AlgaWorks" th:src="@{/images/logo.png}"/>
 		      </a>
 
 		      <ul class="nav  navbar-nav">
@@ -100,8 +100,10 @@
 		</div>
 	</footer>
 </div>	
-<script src="@{/layout/javascripts/vendors.min.js}"></script>
-<script src="@{/layout/javascripts/algaworks.min.js}"></script>	
+<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
+<script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
+<script th:src="@{/javascripts/vendors/jquery.maskMoney.min.js}"></script>	
+<script th:src="@{/javascripts/cervejaria.js}"></script>		
 </body>
 
 </html>
