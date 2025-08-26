@@ -38,7 +38,10 @@
 <script th:src="@{/layout/javascripts/vendors.min.js}"></script>
 <script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
 <script th:src="@{/javascripts/vendors/jquery.maskMoney.min.js}"></script>	
-<script th:src="@{/javascripts/cervejaria.js}"></script>		
+<script th:src="@{/javascripts/cervejaria.js}"></script>
+
+<!-- Javascript que precisa ser executado apenas pelo conteudo, ou seja, paginas especificas, não faz parte do Layout Padrão, por isso foi adiciona em um BLOCO separado -->
+<th:block layout:fragment="javascript-extra"></th:block>		
 </body>
 
 </html>

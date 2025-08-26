@@ -6,6 +6,8 @@
 
 <head>
 	<title>Cadastro de Usuário</title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
 </head>
 
 <body>
@@ -60,13 +62,11 @@
 						<input id="confirmacaoSenha" type="text" class="form-control"/>
 					</div>
 					<div class="col-sm-3 form-group">
-						<label for="status">Status</label>
-						<div>
-							<div class="checkbox">
-								<input type="checkbox" name="status">
-								<label>Ativo</label>
+						<label for="status" class="control-label">Status</label>
+							<div>
+								<input type="checkbox" name="status" class="js-status" data-size="small" data-off-color="danger"
+								data-on-text="Ativo" data-off-text="Inativo">
 							</div>
-						</div>
 					</div>
 				</div>
 				
@@ -89,8 +89,14 @@
 				
 			</form> 
 		</div>
-		
-		
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		<script>
+			$('.js-status').bootstrapSwitch();
+		</script>
+	</th:block>
+	
 </body>
 </html>
