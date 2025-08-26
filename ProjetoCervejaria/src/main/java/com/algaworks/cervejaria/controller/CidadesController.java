@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.algaworks.cervejaria.model.Cerveja;
 
 @Controller
-public class UsuarioController {
-	
-	@RequestMapping("usuarios/novo")
+public class CidadesController {
+
+	@RequestMapping("cidades/nova")
 	public String novo(Model model) {
 		model.addAttribute(new Cerveja());
-		return "usuario/CadastroUsuario";
+		return "cidade/CadastroCidade";
 	}
-	
-
 }
