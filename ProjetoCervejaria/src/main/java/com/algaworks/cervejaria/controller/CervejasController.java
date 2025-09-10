@@ -21,7 +21,8 @@ public class CervejasController {
 	
 	@RequestMapping("/cervejas/novo")
 	public String novo(Model model) {
-		model.addAttribute(new Cerveja());
+		//model.addAttribute(new Cerveja());
+		cervejas.findAll();
 		return "cerveja/CadastroCerveja";
 	}
 	
