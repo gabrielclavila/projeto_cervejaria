@@ -2,6 +2,7 @@ package com.algaworks.cervejaria.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.cervejaria.model.Cerveja;
+import com.algaworks.cervejaria.repository.Cervejas;
 
 @Controller
 public class CervejasController {
-
+	
+	@Autowired
+	private Cervejas cervejas; //Injeção de Dependência da Interface Cervejas do Repository
+	
 	@RequestMapping("/cervejas/novo")
 	public String novo(Model model) {
 		model.addAttribute(new Cerveja());
