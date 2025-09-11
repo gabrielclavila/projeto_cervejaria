@@ -15,12 +15,16 @@ import com.algaworks.cervejaria.model.Cerveja;
 import com.algaworks.cervejaria.model.Origem;
 import com.algaworks.cervejaria.model.Sabor;
 import com.algaworks.cervejaria.repository.Estilos;
+import com.algaworks.cervejaria.service.CadastroCervejaService;
 
 @Controller
 public class CervejasController {
 	
 	@Autowired
 	private Estilos estilos; //Injeção de Depedência com o Padrão Repository
+	
+	@Autowired
+	private CadastroCervejaService cadastroCervejaService;
 	
 	@RequestMapping("/cervejas/novo")
 	public ModelAndView novo(Cerveja cerveja) {
@@ -34,17 +38,12 @@ public class CervejasController {
 	//Ao invés de passar uma lista de parâmetros caso o formulário de cadastro possua vários com o ideal é sempre passar o Objeto Cerveja para o método
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes) {
-		/*if (result.hasErrors()) {
+		if (result.hasErrors()) {
 			return novo(cerveja); //forward, redireciona para uma página
-		}*/
+		}
 		
+		cadastroCervejaService.salvar(cerveja);
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso"); //Cria uma sessão, para manter na mesma página mesmo com o redirect para poder exibir a mensagem na página
-		System.out.println("SKU: "+ cerveja.getSku());
-		System.out.println("Sabor: "+ cerveja.getSabor());
-		System.out.println("Origem: "+ cerveja.getOrigem());
-		System.out.println("cerveja.getEstilo(): " + cerveja.getEstilo());
-		if (cerveja.getEstilo() != null)
-			System.out.println("Estilo: " + cerveja.getEstilo().getCodigo());
 		return new ModelAndView("redirect:/cervejas/novo"); //redirect, redireciona para uma URL
 	}
 	
