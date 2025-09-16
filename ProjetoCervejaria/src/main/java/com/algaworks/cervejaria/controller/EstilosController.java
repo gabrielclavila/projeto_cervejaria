@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.cervejaria.model.Estilo;
 import com.algaworks.cervejaria.service.CadastroEstiloService;
+import com.algaworks.cervejaria.service.exception.NomeEstiloJaCadastradoException;
 
 @Controller
 public class EstilosController {
@@ -32,7 +33,13 @@ public class EstilosController {
 			return novo(estilo); 
 		}
 		
-		cadastroEstiloService.salvar(estilo);
+		try {
+			cadastroEstiloService.salvar(estilo);
+		} catch (NomeEstiloJaCadastradoException e) {
+			result.rejectValue("nome", e.getMessage(), e.getMessage()); //Método rejectValue necessita que getMessage seja passado duas vezes para conseguir exibir na tela
+			return novo(estilo);
+		}
+		
 		attributes.addFlashAttribute("mensagem", "Estilo salvo com sucesso"); 
 		return new ModelAndView("redirect:/estilos/novo"); 
 	}	
