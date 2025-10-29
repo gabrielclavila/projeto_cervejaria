@@ -27,6 +27,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.algaworks.cervejaria.controller.CervejasController;
 import com.algaworks.cervejaria.controller.converter.EstiloConverter;
+import com.algaworks.cervejaria.thymeleaf.CervejariaDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -59,6 +60,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		engine.setTemplateResolver(templateResolver());
 		
 		engine.addDialect(new LayoutDialect());
+		engine.addDialect(new CervejariaDialect());
 		return engine;
 	}	
 	
