@@ -1,6 +1,8 @@
 package com.algaworks.cervejaria.config.init;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -35,5 +37,10 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		
 		return new Filter[] {characterEncodingFilter};
 	}
-
+	
+	//Configurando a Multipart para que no FotosController seja possível realizar o upload das fotos
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setMultipartConfig(new MultipartConfigElement(""));
+	}
 }
